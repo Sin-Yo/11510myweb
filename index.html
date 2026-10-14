@@ -3,240 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>黃信育 | 個人網站</title>
-    <!-- 引入 Tailwind CSS -->
+    <title>黃信育 | 資訊專業個人網站</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Google Fonts: Noto Sans TC -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tech: {
+                            dark: '#0f172a',    // slate-900
+                            darker: '#020617',  // slate-950
+                            card: '#1e293b',    // slate-800
+                            accent: '#22d3ee',  // cyan-400
+                            text: '#cbd5e1',    // slate-300
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts: Noto Sans TC & Fira Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- 引入 FontAwesome 圖示 -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #fafafa;
-            color: #333333;
+            background-color: #020617; /* tech.darker */
+            color: #cbd5e1; /* tech.text */
         }
         
-        /* 捲動淡入動畫基礎設定 */
-        .fade-in-section {
+        /* Scroll Reveal Animations */
+        .reveal-up {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            will-change: opacity, visibility;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-        
-        .fade-in-section.is-visible {
+        .reveal-up.active {
             opacity: 1;
-            transform: none;
+            transform: translateY(0);
         }
 
-        /* 導覽列模糊效果 */
-        .glass-nav {
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+        /* Typewriter Cursor */
+        .cursor::after {
+            content: '|';
+            animation: blink 1s step-start infinite;
+            color: #22d3ee;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Glowing Effects for Tech Vibe */
+        .glow-hover:hover {
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+            border-color: #22d3ee;
         }
         
-        /* 極簡按鈕/標籤 hover 效果 */
-        .minimal-hover {
-            transition: all 0.3s ease;
-        }
-        .minimal-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+        /* Glassmorphism Navbar */
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
-<body class="antialiased selection:bg-gray-200 selection:text-gray-900 text-gray-800">
+<body class="antialiased font-sans selection:bg-tech-accent selection:text-tech-darker">
 
-    <nav class="glass-nav fixed w-full z-50 top-0 border-b border-gray-100 transition-all duration-300" id="navbar">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#home" class="text-xl font-medium tracking-widest text-gray-900">黃信育</a>
+    <nav class="glass-nav fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-xl font-bold text-white tracking-widest flex items-center gap-2">
+                <i class="fa-solid fa-terminal text-tech-accent"></i> 
+                <span>HsinYu<span class="text-tech-accent">.</span></span>
+            </a>
             
-            <!-- 桌面版選單 -->
-            <div class="hidden md:flex space-x-8 text-sm font-light">
-                <a href="#home" class="hover:text-gray-500 transition-colors">首頁</a>
-                <a href="#about" class="hover:text-gray-500 transition-colors">關於我</a>
-                <a href="#skills" class="hover:text-gray-500 transition-colors">技能</a>
-                <a href="#contact" class="hover:text-gray-500 transition-colors">聯繫方式</a>
-            </div>
-
-            <!-- 手機版選單按鈕 (保留基本彈性，極簡設計可直接展開或純CSS，這裡採用簡單顯示) -->
-            <div class="md:hidden flex text-sm space-x-4 font-light">
-                <a href="#about" class="hover:text-gray-500">關於</a>
-                <a href="#skills" class="hover:text-gray-500">技能</a>
-                <a href="#contact" class="hover:text-gray-500">聯繫</a>
+            <div class="hidden md:flex space-x-8 text-sm font-mono text-tech-text">
+                <a href="#home" class="hover:text-tech-accent transition-colors">01.Home</a>
+                <a href="#about" class="hover:text-tech-accent transition-colors">02.About</a>
+                <a href="#skills" class="hover:text-tech-accent transition-colors">03.Skills</a>
+                <a href="#contact" class="hover:text-tech-accent transition-colors">04.Contact</a>
             </div>
         </div>
     </nav>
 
-    <header id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20">
-        <div class="fade-in-section max-w-3xl">
-            <h2 class="text-sm md:text-base font-light text-gray-400 tracking-widest mb-4 uppercase">Portfolio</h2>
-            <h1 class="text-4xl md:text-6xl font-medium text-gray-900 mb-6 tracking-wide">黃信育</h1>
-            <p class="text-lg md:text-xl text-gray-500 font-light mb-8">開南大學 資訊管理系</p>
+    <header id="home" class="min-h-screen flex flex-col justify-center items-center px-6 pt-20 relative overflow-hidden">
+        <!-- Background Grid Effect -->
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none -z-10"></div>
+
+        <div class="max-w-4xl w-full reveal-up">
+            <p class="font-mono text-tech-accent mb-4">Hi, my name is</p>
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 tracking-wide">黃信育.</h1>
+            <h2 class="text-3xl md:text-5xl font-bold text-slate-500 mb-8">開南大學 資訊管理系</h2>
             
-            <div class="w-12 h-[1px] bg-gray-300 mx-auto mb-8"></div>
-            
-            <p class="text-xl md:text-2xl font-light text-gray-700 leading-relaxed italic">
-                「喜歡簡單生活，也喜歡認真對待每一件事。」
-            </p>
-            
-            <div class="mt-16">
-                <a href="#about" class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-gray-400 hover:text-gray-800 hover:border-gray-800 transition-all duration-300 animate-bounce">
-                    <i class="fa-solid fa-arrow-down text-sm"></i>
-                </a>
+            <!-- Terminal Window -->
+            <div class="bg-tech-dark rounded-lg border border-slate-700 overflow-hidden shadow-2xl max-w-2xl mt-8">
+                <div class="bg-slate-800 px-4 py-2 flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="ml-2 text-xs font-mono text-slate-400">guest@hsinyu: ~</span>
+                </div>
+                <div class="p-6 font-mono text-sm md:text-base text-slate-300">
+                    <span class="text-green-400">➜</span> <span class="text-blue-400">~</span> <span class="text-tech-accent">./introduce.sh</span>
+                    <br>
+                    <span id="typewriter" class="mt-2 block text-gray-300 h-6"></span>
+                </div>
             </div>
         </div>
     </header>
 
-    <section id="about" class="py-32 bg-white">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="fade-in-section text-center mb-16">
-                <h2 class="text-2xl font-medium tracking-widest mb-2">關於我</h2>
-                <div class="w-8 h-[1px] bg-gray-900 mx-auto"></div>
+    <section id="about" class="py-24 md:py-32 relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-12 reveal-up">
+                <h2 class="text-2xl md:text-3xl font-bold text-white font-mono"><span class="text-tech-accent">02.</span> 關於我</h2>
+                <div class="h-[1px] bg-slate-700 flex-grow"></div>
             </div>
             
-            <div class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
-                <!-- 照片 -->
-                <div class="fade-in-section w-full md:w-1/2 flex justify-center">
-                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border border-gray-100 shadow-sm minimal-hover">
-                        <!-- 使用 placehold.co 作為真實照片佔位符，您可以替換 src 為您的真實照片路徑 -->
-                        <img src="https://placehold.co/400x400/eeeeee/999999?text=Profile+Photo" alt="黃信育的照片" class="w-full h-full object-cover">
-                    </div>
-                </div>
-                
-                <!-- 介紹文字 -->
-                <div class="fade-in-section w-full md:w-1/2 text-center md:text-left">
-                    <h3 class="text-xl font-medium mb-6 text-gray-800">您好，我是黃信育</h3>
-                    <p class="text-gray-500 font-light leading-loose mb-8">
-                        目前就讀於開南大學資訊管理系。我熱愛探索資訊科技帶來的無限可能，並專注於將複雜的問題轉化為簡單、優雅的解決方案。
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="w-full md:w-3/5 reveal-up">
+                    <p class="text-slate-400 leading-relaxed mb-6">
+                        您好！我是<span class="text-tech-accent font-medium">黃信育</span>，目前就讀於<span class="text-white">開南大學資訊管理系</span>。我專注於探索資訊科技的應用，並對軟體開發充滿熱忱。我相信科技能為生活帶來改變，因此致力於將複雜的邏輯轉化為清晰、優雅的解決方案。
                     </p>
                     
-                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 inline-block text-left w-full">
-                        <h4 class="text-sm font-medium text-gray-400 tracking-widest mb-4 uppercase">我的興趣</h4>
-                        <ul class="space-y-3">
-                            <li class="flex items-center text-gray-700 font-light">
-                                <i class="fa-solid fa-book text-gray-300 w-6"></i> 讀書 - 探索不同領域的知識
-                            </li>
-                            <li class="flex items-center text-gray-700 font-light">
-                                <i class="fa-solid fa-person-running text-gray-300 w-6"></i> 運動 - 保持身心健康與活力
-                            </li>
-                        </ul>
+                    <div class="bg-tech-card border border-slate-700 rounded-lg p-6 mt-8 glow-hover transition-all duration-300">
+                        <h3 class="font-mono text-tech-accent mb-4"><i class="fa-solid fa-code-branch mr-2"></i>Interests</h3>
+                        <div class="flex gap-4">
+                            <div class="flex items-center gap-2 bg-tech-dark px-4 py-2 rounded border border-slate-700">
+                                <i class="fa-solid fa-book-open text-slate-400"></i>
+                                <span>讀書</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-tech-dark px-4 py-2 rounded border border-slate-700">
+                                <i class="fa-solid fa-dumbbell text-slate-400"></i>
+                                <span>運動</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="py-32 bg-gray-50">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="fade-in-section text-center mb-16">
-                <h2 class="text-2xl font-medium tracking-widest mb-2">專業技能</h2>
-                <div class="w-8 h-[1px] bg-gray-900 mx-auto"></div>
-            </div>
-
-            <div class="fade-in-section flex flex-col md:flex-row justify-center gap-8 md:gap-16">
                 
-                <!-- 技能 1 -->
-                <div class="minimal-hover bg-white p-10 rounded-3xl border border-gray-100 shadow-sm flex-1 text-center group">
-                    <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gray-900 transition-colors duration-300">
-                        <i class="fa-solid fa-code text-2xl text-gray-400 group-hover:text-white transition-colors duration-300"></i>
+                <div class="w-64 h-64 md:w-80 md:h-80 relative reveal-up group">
+                    <div class="absolute inset-0 border-2 border-tech-accent rounded-lg translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-300 -z-10"></div>
+                    <div class="w-full h-full bg-tech-card border border-slate-700 rounded-lg overflow-hidden relative">
+                        <!-- 專業頭像佔位 -->
+                        <img src="https://placehold.co/400x400/1e293b/22d3ee?text=Dev+Profile" alt="黃信育" class="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-500">
+                        <div class="absolute inset-0 bg-tech-accent/10 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
-                    <h3 class="text-xl font-medium text-gray-800 mb-4">寫代碼</h3>
-                    <p class="text-gray-400 font-light text-sm leading-relaxed">
-                        熱愛編寫乾淨、高效的程式碼，致力於打造優質的數位體驗與前端介面。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-24 md:py-32 bg-tech-dark">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16 reveal-up">
+                <h2 class="text-2xl md:text-3xl font-bold text-white font-mono"><span class="text-tech-accent">03.</span> 專業技能</h2>
+                <div class="h-[1px] bg-slate-700 flex-grow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Skill Card 1 -->
+                <div class="bg-tech-card border border-slate-700 p-8 rounded-xl glow-hover transition-all duration-300 reveal-up">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded bg-tech-dark flex items-center justify-center border border-slate-600">
+                            <i class="fa-solid fa-laptop-code text-2xl text-tech-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">寫代碼 <span class="text-slate-500 text-sm font-mono font-normal block">Coding & Development</span></h3>
+                    </div>
+                    <p class="text-slate-400 mb-6 text-sm">
+                        專注於前端與後端技術整合，具備邏輯思考能力，能將需求轉化為實際的程式碼架構。
                     </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="px-3 py-1 bg-tech-dark border border-slate-600 text-tech-accent rounded">HTML5</span>
+                        <span class="px-3 py-1 bg-tech-dark border border-slate-600 text-tech-accent rounded">CSS3</span>
+                        <span class="px-3 py-1 bg-tech-dark border border-slate-600 text-tech-accent rounded">JavaScript</span>
+                        <span class="px-3 py-1 bg-tech-dark border border-slate-600 text-tech-accent rounded">Python</span>
+                        <span class="px-3 py-1 bg-tech-dark border border-slate-600 text-tech-accent rounded">MySQL</span>
+                    </div>
                 </div>
 
-                <!-- 技能 2 -->
-                <div class="minimal-hover bg-white p-10 rounded-3xl border border-gray-100 shadow-sm flex-1 text-center group">
-                    <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gray-900 transition-colors duration-300">
-                        <i class="fa-solid fa-share-nodes text-2xl text-gray-400 group-hover:text-white transition-colors duration-300"></i>
+                <!-- Skill Card 2 -->
+                <div class="bg-tech-card border border-slate-700 p-8 rounded-xl glow-hover transition-all duration-300 reveal-up" style="transition-delay: 100ms;">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded bg-tech-dark flex items-center justify-center border border-slate-600">
+                            <i class="fa-solid fa-share-nodes text-2xl text-tech-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">分享 <span class="text-slate-500 text-sm font-mono font-normal block">Knowledge Sharing</span></h3>
                     </div>
-                    <h3 class="text-xl font-medium text-gray-800 mb-4">分享</h3>
-                    <p class="text-gray-400 font-light text-sm leading-relaxed">
-                        樂於交流技術與知識，相信透過分享與合作能創造更大的價值。
+                    <p class="text-slate-400 mb-6 text-sm">
+                        喜歡在團隊中交流技術，記錄開發過程中的踩坑經驗，透過分享來鞏固知識並幫助他人。
                     </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="px-3 py-1 bg-tech-dark border border-slate-600 text-slate-300 rounded">Technical Writing</span>
+                        <span class="px-3 py-1 bg-tech-dark border border-slate-600 text-slate-300 rounded">Mentoring</span>
+                        <span class="px-3 py-1 bg-tech-dark border border-slate-600 text-slate-300 rounded">Teamwork</span>
+                    </div>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-32 bg-white">
-        <div class="max-w-3xl mx-auto px-6 text-center">
-            <div class="fade-in-section mb-12">
-                <h2 class="text-2xl font-medium tracking-widest mb-2">聯繫方式</h2>
-                <div class="w-8 h-[1px] bg-gray-900 mx-auto mb-8"></div>
-                <p class="text-gray-500 font-light">如果您對我的作品感興趣，或有任何合作機會，歡迎隨時與我聯繫。</p>
-            </div>
+    <section id="contact" class="py-32 relative">
+        <div class="max-w-2xl mx-auto px-6 text-center reveal-up">
+            <p class="font-mono text-tech-accent mb-4">04. What's Next?</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Get In Touch</h2>
+            <p class="text-slate-400 mb-12">
+                無論是技術交流、專案合作，還是想打個招呼，我的收件匣隨時為您敞開。我會盡快回覆您的訊息！
+            </p>
+            
+            <a href="mailto:hyhuang@mail.lit.edu.tw" class="inline-block px-8 py-4 bg-transparent border border-tech-accent text-tech-accent font-mono rounded hover:bg-tech-accent/10 transition-colors duration-300 mb-16">
+                Say Hello <i class="fa-regular fa-paper-plane ml-2"></i>
+            </a>
 
-            <div class="fade-in-section bg-gray-50 border border-gray-100 rounded-3xl p-8 md:p-12 minimal-hover shadow-sm inline-block w-full max-w-lg">
-                <div class="mb-8">
-                    <span class="block text-xs text-gray-400 uppercase tracking-widest mb-2">Email</span>
-                    <a href="mailto:hyhuang@mail.lit.edu.tw" class="text-lg md:text-xl font-medium text-gray-800 hover:text-gray-500 transition-colors break-all">
-                        hyhuang@mail.lit.edu.tw
-                    </a>
-                </div>
-
-                <div class="flex justify-center gap-6 mt-8">
-                    <!-- Line 佔位 -->
-                    <a href="#" class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-[#00B900] hover:text-white hover:border-[#00B900] transition-all duration-300 tooltip" title="Line">
-                        <i class="fa-brands fa-line text-xl"></i>
-                    </a>
-                    <!-- Instagram 佔位 -->
-                    <a href="#" class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:text-white hover:border-transparent transition-all duration-300 tooltip" title="Instagram">
-                        <i class="fa-brands fa-instagram text-xl"></i>
-                    </a>
-                </div>
+            <div class="flex justify-center gap-6">
+                <a href="#" class="w-12 h-12 flex items-center justify-center rounded-full bg-tech-card border border-slate-700 text-slate-400 hover:text-tech-accent hover:border-tech-accent transition-all duration-300">
+                    <i class="fa-solid fa-envelope text-xl"></i>
+                </a>
+                <a href="#" class="w-12 h-12 flex items-center justify-center rounded-full bg-tech-card border border-slate-700 text-slate-400 hover:text-[#00B900] hover:border-[#00B900] transition-all duration-300">
+                    <i class="fa-brands fa-line text-xl"></i>
+                </a>
+                <a href="#" class="w-12 h-12 flex items-center justify-center rounded-full bg-tech-card border border-slate-700 text-slate-400 hover:text-[#E1306C] hover:border-[#E1306C] transition-all duration-300">
+                    <i class="fa-brands fa-instagram text-xl"></i>
+                </a>
             </div>
         </div>
     </section>
 
-    <footer class="bg-white border-t border-gray-100 py-10 text-center">
-        <p class="text-gray-400 text-sm font-light tracking-wide">
-            &copy; 2026 黃信育 Hsin-Yu Huang. All rights reserved.
-        </p>
+    <footer class="py-6 text-center font-mono text-xs text-slate-500 border-t border-slate-800">
+        <p>Designed & Built by Hsin-Yu Huang.</p>
+        <p class="mt-1">&copy; 2026 All rights reserved.</p>
     </footer>
 
     <script>
-        // 設定捲動淡入動畫的 Intersection Observer
-        document.addEventListener("DOMContentLoaded", function() {
+        // Terminal Typewriter Effect
+        const textToType = "喜歡簡單生活，也喜歡認真對待每一件事。";
+        const typewriterElement = document.getElementById('typewriter');
+        let index = 0;
+
+        function typeWriter() {
+            if (index < textToType.length) {
+                typewriterElement.innerHTML = textToType.substring(0, index + 1) + '<span class="cursor"></span>';
+                index++;
+                setTimeout(typeWriter, 100 + Math.random() * 50); // Random typing speed
+            }
+        }
+
+        // Delay typing effect slightly after load
+        setTimeout(typeWriter, 1000);
+
+        // Scroll Reveal via Intersection Observer
+        document.addEventListener("DOMContentLoaded", () => {
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.15 // 當元素有 15% 進入視窗時觸發
+                threshold: 0.1
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        // 動畫觸發後取消觀察，若想要重複觸發則移除此行
+                        entry.target.classList.add('active');
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
-            // 尋找所有需要淡入動畫的元素
-            const fadeElements = document.querySelectorAll('.fade-in-section');
-            fadeElements.forEach(el => {
-                observer.observe(el);
-            });
-
-            // 導覽列陰影效果 (向下捲動時增加邊框/陰影)
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('shadow-sm');
-                } else {
-                    navbar.classList.remove('shadow-sm');
-                }
-            });
+            const revealElements = document.querySelectorAll('.reveal-up');
+            revealElements.forEach(el => observer.observe(el));
         });
     </script>
 </body>
